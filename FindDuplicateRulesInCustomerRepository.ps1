@@ -1,15 +1,15 @@
-## Skript, který v repozitáři zákazníka najde duplikátní pravidla 
+## Script that finds duplicate rules in the customer's repository 
 
-Write-Host "🔹 Nezapomeň se přihlásit k Azure CLI (az login)!"
-$customer = Read-Host "🔹 Zadejte název zákazníka: "
+Write-Host "🔹 Don't forget to log in to Azure CLI (az login)!"
+$customer = Read-Host "🔹 Enter the customer name: "
 
 $directoryPath = "/Users/mystak23/SentinelRepository/Seyfor.DevOps/Sentinel-$customer/4-AnalyticRules"
 $outputFile = "DuplicateId.txt"
 
-# Najde všechny JSON soubory v daném adresáři a podadresářích
+# Find all JSON files in the given directory and its subdirectories
 $jsonFiles = Get-ChildItem -Path $directoryPath -Recurse -Filter "*.json"
 
-# HashTable pro sledování ID, názvů pravidel a cest k souborům
+# HashTable to track rule IDs, rule names, and file paths
 $idCounts = @{}
 $idNames = @{}
 $idPaths = @{}
@@ -40,36 +40,36 @@ foreach ($file in $jsonFiles) {
     }
 }
 
-# Zkontrolujeme, zda jsou nějaká data v hash tabulce
+# Check if there is any data in the hash table
 if ($idCounts.Count -eq 0) {
-    "Žádná analytická pravidla nebyla nalezena." | Out-File -FilePath $outputFile
+    "No analytic rules were found." | Out-File -FilePath $outputFile
     exit
 }
 
-# Uložení všech ID pravidel
-"Všechna nalezená ID pravidel:" | Out-File -FilePath $outputFile
+# Save all found rule IDs
+"All found rule IDs:" | Out-File -FilePath $outputFile
 foreach ($ruleId in $idCounts.Keys) {
     $ruleId | Out-File -FilePath $outputFile -Append
 }
 
-# Uložení duplikátních ID, jejich názvů a cest k souborům
-"`nDuplikátní ID pravidel:" | Out-File -FilePath $outputFile -Append
+# Save duplicate rule IDs, their names, and file paths
+"`nDuplicate rule IDs:" | Out-File -FilePath $outputFile -Append
 $hasDuplicates = $false
 foreach ($ruleId in $idCounts.Keys) {
     if ($idCounts[$ruleId] -gt 1) {
         $hasDuplicates = $true
         $count = $idCounts[$ruleId]
-        $ruleNames = ($idNames[$ruleId] | Select-Object -Unique) -join ", "  # Odstranění duplicitních názvů
-        $filePaths = ($idPaths[$ruleId] | Select-Object -Unique) -join "`n  "  # Odstranění duplicitních cest
+        $ruleNames = ($idNames[$ruleId] | Select-Object -Unique) -join ", "  # Remove duplicate names
+        $filePaths = ($idPaths[$ruleId] | Select-Object -Unique) -join "`n  "  # Remove duplicate paths
         
-        "$ruleId (Počet: $count) - Názvy: $ruleNames" | Out-File -FilePath $outputFile -Append
-        "  Cesty k souborům:`n  $filePaths" | Out-File -FilePath $outputFile -Append
+        "$ruleId (Count: $count) - Names: $ruleNames" | Out-File -FilePath $outputFile -Append
+        "  File paths:`n  $filePaths" | Out-File -FilePath $outputFile -Append
     }
 }
 
-# Pokud nejsou duplikáty, informujeme uživatele
+# If no duplicates are found, inform the user
 if (-not $hasDuplicates) {
-    "Žádná duplikátní pravidla nebyla nalezena." | Out-File -FilePath $outputFile -Append
+    "No duplicate rules were found." | Out-File -FilePath $outputFile -Append
 }
 
-Write-Host "Výstup byl uložen do $outputFile"
+Write-Host "The output has been saved to $outputFile"

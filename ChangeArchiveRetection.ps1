@@ -1,19 +1,19 @@
-## Skript, který změní archivní retenci u všech požadovaných tabulek na 2 roky, zatímco nechá interaktivní retenci na úrovni workspace default.
+## Script that changes archive retention for all required tables to 2 years while keeping interactive retention at the workspace default level.
 
-Write-Host "🔹 Nezapomeň se přihlásit k Azure CLI (az login)!"
-$customer = Read-Host "🔹 Zadejte název zákazníka: "
+Write-Host "🔹 Don't forget to log in to Azure CLI (az login)!"
+$customer = Read-Host "🔹 Enter the customer name: "
 
-# Nastavení proměnných
+# Setting up variables
 $jsonFilePath = "/Users/mystak23/SentinelRepository/Seyfor.DevOps/Tools/Python Repository Scripts/CustomerAzureValues.json"
 $jsonData = Get-Content -Raw -Path $jsonFilePath | ConvertFrom-Json
 $resourceGroup = $jsonData.$customer.resource_group
 $workspaceName = $jsonData.$customer.workspace_name
 
-$archiveRetentionTableTime = -1 # -1 je workspace default pro interaktivni retenci
-$interactiveRetentionTableTime = 730 # 2 roky interaktivni retence pro SecurityAlert, SecurityIncident
-$totalRetention = 730 # 2 roky
+$archiveRetentionTableTime = -1 # -1 means workspace default for interactive retention
+$interactiveRetentionTableTime = 730 # 2 years of interactive retention for SecurityAlert, SecurityIncident
+$totalRetention = 730 # 2 years
 
-# Seznam tabulek, u kterých chceme změnit retenci
+# List of tables for which we want to change retention
 $archiveTables = @(
     "SigninLogs",
     "AzureActivity",
@@ -68,7 +68,7 @@ $interactiveTables = @(
     "SecurityAlert"
 )
 
-# Procházení každé tabulky v seznamu a změna retence
+# Iterate through each table in the list and change retention
 foreach ($tableName in $archiveTables) {
     az monitor log-analytics workspace table update `
         --resource-group $resourceGroup `
@@ -77,10 +77,10 @@ foreach ($tableName in $archiveTables) {
         --retention-time $archiveRetentionTableTime `
         --total-retention-time $totalRetention *> $null
 
-    Write-Host "✅ Archivní retence (2 roky) úspěšně změněna pro tabulku: $tableName!" -ForegroundColor Green
+    Write-Host "✅ Archive retention (2 years) successfully updated for table: $tableName!" -ForegroundColor Green
 }
 
-# Nastav interaktivní retenci na 2 roky u SecurityAlert a SecurityIncident
+# Set interactive retention to 2 years for SecurityAlert and SecurityIncident
 foreach ($tableName in $interactiveTables) {
     az monitor log-analytics workspace table update `
         --resource-group $resourceGroup `
@@ -89,8 +89,7 @@ foreach ($tableName in $interactiveTables) {
         --retention-time $interactiveRetentionTableTime `
         --total-retention-time $totalRetention *> $null
 
-    Write-Host "✅ Interaktivní i archivní retence (2 roky) úspěšně změněna pro tabulku: $tableName!" -ForegroundColor Green
+    Write-Host "✅ Interactive and archive retention (2 years) successfully updated for table: $tableName!" -ForegroundColor Green
 }
 
-
-Write-Host "`n✅ Všechny tabulky byly úspěšně aktualizovány!" -ForegroundColor Green
+Write-Host "`n✅ All tables have been successfully updated!" -ForegroundColor Green
