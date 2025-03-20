@@ -26,11 +26,15 @@ This repository contains useful scripts for automating and managing **Microsoft 
 ## 🚀 Usage
 
 ### Running PowerShell Scripts:
+
 ```pwsh```
+
 ```./<script_name>.ps1```
 
 ### Running Python Scripts:
 ```python3 -m venv venv```
+
 ```venv bin/activate```
+
 ```python <script_name>.py```
 
