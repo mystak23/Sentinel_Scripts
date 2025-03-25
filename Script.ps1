@@ -1,5 +1,3 @@
-# Definice proměnných
-
 # 1. Načtení config file
 $generalConfigPath = "values/DevOps.json"
 $generalConfig = Get-Content $generalConfigPath | ConvertFrom-Json
@@ -11,27 +9,35 @@ $serviceConnectionConfigPath = "values/ServiceConnection.json"
 $customerApplicationName = $generalConfig.applicationName
 
 # Input
-$customer = Read-Host "Zadej název zákazníka"
-$customerTenantId = Read-Host "Zadej Tenant ID zákazníka"
-$customerSubscriptionId = Read-Host "Zadej Subscription ID zákazníka"
-$customerResourceGroupName = Read-Host "Zadej název Resource Group zákazníka"
-$customerWorkspaceName = Read-Host "Zadej název Log Analytics Workspace"
+$customer = "TEST" #Read-Host "Zadej název zákazníka"
+$customerTenantId = "fec3a0fa-64ae-446f-a3a6-2b0eeae14c73" #Read-Host "Zadej Tenant ID zákazníka"
+$customerSubscriptionId = "66a13036-966e-4910-83ec-b28bc1a66923" # Read-Host "Zadej Subscription ID zákazníka"
+$customerResourceGroupName = "RG-Test1828" #Read-Host "Zadej název Resource Group zákazníka"
+$customerWorkspaceName = "RG-Test1828" #Read-Host "Zadej název Log Analytics Workspace"
 
 # 3. DevOps
 
 # Ze souboru
 $pat = $generalConfig.pat
 $projectName = $generalConfig.projectName
-$repoName = $generalConfig.repoName
+$repoName = "$($generalConfig.repoName)-$customer"
 $devOpsOrg = $generalConfig.devOpsOrg
 $devOpsOrgUrl = $generalConfig.devOpsOrgUrl
-$sourcePipelineFolder = $generalConfig.$sourcePipelineFolder
+$sourcePipelineFolder = $generalConfig.sourcePipelineFolder
+$issuer = $generalConfig.issuer
+$audience = $generalConfig.audience
+$subClaim = $generalConfig.subClaim
+
+if ([string]::IsNullOrWhiteSpace($subClaim)) {
+    Write-Error "❌ Proměnná 'subClaim' nesmí být prázdná. Zkontroluj konfiguraci v DevOps.json."
+    exit 1
+}
 
 # Input
 $serviceConnectionName = "Sentinel-$customer"
-$pipelineName = "Sentinel-$customer"
+$pipelineName = $repoName
 $gitUrl = "git@ssh.dev.azure.com:v3/$devOpsOrg/$projectName/$repoName"
-$clonePath = "Join-Path -Path $PWD -ChildPath $repoName"
+$clonePath = Join-Path -Path $PWD -ChildPath $repoName
 $targetPipelineFolder = Join-Path -Path $clonePath -ChildPath ".devops-pipeline"
 $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$pat"))
 $headers = @{ Authorization = "Basic $base64AuthInfo" }
@@ -55,18 +61,21 @@ $appId = $app.appId
 $appObjectId = $app.id
 
 # === FEDERATED CREDENTIAL ===
-$federatedCredential = @{
+$federatedCredentialFile = "federated.json"
+$federatedCredentialContent = @{
     name = "DevOpsFederatedLogin"
-    issuer = $issuer
+    issuer = "$issuer"
     subject = $subClaim
-    audiences = @($audience)
-} | ConvertTo-Json -Depth 10 -Compress
+    audiences = @("$audience")
+}
 
-$federatedCredential | Out-File -Encoding utf8 $serviceConnectionConfigPath
+$federatedCredentialContent | ConvertTo-Json -Depth 10 | Out-File -Encoding utf8 $federatedCredentialFile
 
 az ad app federated-credential create `
     --id $appObjectId `
-    --parameters $serviceConnectionConfigPath
+    --parameters $federatedCredentialFile
+
+Write-Host "✅ Federated credential vytvořen a připojen k aplikaci"
 
 Remove-Item $federatedCredentialFile
 
@@ -74,10 +83,10 @@ Remove-Item $federatedCredentialFile
 $sp = az ad sp create --id $appId | ConvertFrom-Json
 
 # === PŘIŘAZENÍ ROLÍ ===
-
 foreach ($role in $roles) {
     az role assignment create `
-        --assignee $sp.appId `
+        --assignee-object-id $sp.id `
+        --assignee-principal-type ServicePrincipal `
         --role $role `
         --scope "/subscriptions/$customerSubscriptionId"
 }
@@ -118,9 +127,10 @@ $devOpsJson = @{
         id = $projectId
         name = $projectName
     })
-} | ConvertTo-Json -Depth 10
+}
 
-$devOpsJson | Out-File -Encoding utf8 $devOpsJsonPath
+$devOpsJsonPath = "temp-serviceconnection.json"
+$devOpsJson | ConvertTo-Json -Depth 10 | Out-File -Encoding utf8 $devOpsJsonPath
 
 az devops service-endpoint create `
     --service-endpoint-configuration $devOpsJsonPath `
