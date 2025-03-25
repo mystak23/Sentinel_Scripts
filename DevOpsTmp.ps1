@@ -64,19 +64,20 @@ $pipelineName = "Deploy-Sentinel-$customer"
 az pipelines create `
   --name $pipelineName `
   --repository $repoName `
+  --repository-type tfsgit `
   --branch main `
   --yaml-path pipeline.yml `
   --project $projectName `
-  --org $devOpsOrgUrl
+  --org "$devOpsOrgUrl"
 
 # 6. Přiřazení oprávnění pro pipeline k Service Connection
-$pipelineId = az pipelines show --name $pipelineName --org $devOpsOrgUrl --project $projectName --query id -o tsv
-$serviceConnectionId = az devops service-endpoint list --project $projectName --org $devOpsOrgUrl --query "[?name=='$serviceConnectionName'].id" -o tsv
+$pipelineId = az pipelines show --name $pipelineName --org "$devOpsOrgUrl" --project "$projectName" --query id -o tsv
+$serviceConnectionId = az devops service-endpoint list --project "$projectName" --org "$devOpsOrgUrl" --query "[?name=='$serviceConnectionName'].id" -o tsv
 
 az devops service-endpoint update `
     --id $serviceConnectionId `
-    --project $projectName `
-    --org $devOpsOrgUrl `
+    --project "$projectName" `
+    --org "$devOpsOrgUrl" `
     --enable-for-all-pipelines true
 
 Write-Host "`n✅ Pipeline vytvořena a nastaveny proměnné i oprávnění."
