@@ -4,9 +4,7 @@
 $repoPath = "$PWD/$repoName"
 $cloneUrl = "git@ssh.dev.azure.com:v3/$devOpsOrg/$projectName/$repoName"
 
-if ((Test-Path $repoPath) -and ($repoPath -ne $PWD)) {
-    Remove-Item -Recurse -Force $repoPath
-}
+
 git clone $cloneUrl
 
 # 2. Přidání složky .devops-pipeline do repozitáře
