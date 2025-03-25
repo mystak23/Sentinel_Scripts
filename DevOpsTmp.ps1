@@ -11,7 +11,7 @@ git clone $cloneUrl
 
 # 2. Přidání složky .devops-pipeline do repozitáře
 $sourceDevOpsFolder = ".devops-pipeline"
-$targetDevOpsFolder = "$repoPath"
+$targetDevOpsFolder = "$repoPath/.devops"
 Copy-Item -Path $sourceDevOpsFolder -Destination $targetDevOpsFolder -Recurse -Force
 
 # 3. Přesun pipeline.yml do root repozitáře
