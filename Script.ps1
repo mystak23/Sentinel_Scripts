@@ -8,14 +8,14 @@ $serviceConnectionConfigPath = "values/ServiceConnection.json"
 # 2. Informace o zákazníkovi
 
 # Ze souboru
-$customerApplicationName = $config.applicationName
+$customerApplicationName = $generalConfig.applicationName
 
 # Input
-$customer = $generalConfig.customer
-$customerTenantId = $generalConfig.customerTenantId
-$customerSubscriptionId = $generalConfig.customerSubscriptionId
-$customerResourceGroupName = $generalConfig.resourceGroupName
-$customerWorkspaceName = $generalConfig.workspaceName
+$customer = Read-Host "Zadej název zákazníka"
+$customerTenantId = Read-Host "Zadej Tenant ID zákazníka"
+$customerSubscriptionId = Read-Host "Zadej Subscription ID zákazníka"
+$customerResourceGroupName = Read-Host "Zadej název Resource Group zákazníka"
+$customerWorkspaceName = Read-Host "Zadej název Log Analytics Workspace"
 
 # 3. DevOps
 
@@ -29,6 +29,7 @@ $sourcePipelineFolder = $generalConfig.$sourcePipelineFolder
 
 # Input
 $serviceConnectionName = "Sentinel-$customer"
+$pipelineName = "Sentinel-$customer"
 $gitUrl = "git@ssh.dev.azure.com:v3/$devOpsOrg/$projectName/$repoName"
 $clonePath = "Join-Path -Path $PWD -ChildPath $repoName"
 $targetPipelineFolder = Join-Path -Path $clonePath -ChildPath ".devops-pipeline"
@@ -184,7 +185,6 @@ $repoId = $repo.id
 Write-Host "✅ Repository ID: $repoId"
 
 # === VYTVOŘENÍ PIPELINE ===
-$pipelineName = "CI-$repoName"
 $branch = "main"  # přizpůsob podle skutečné větve
 
 $body = @{
