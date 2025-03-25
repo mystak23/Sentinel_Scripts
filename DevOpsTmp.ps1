@@ -4,7 +4,7 @@
 $repoPath = "$PWD/$repoName"
 $cloneUrl = "git@ssh.dev.azure.com:v3/$devOpsOrg/$projectName/$repoName"
 
-if (Test-Path $repoPath) {
+if ((Test-Path $repoPath) -and ($repoPath -ne $PWD)) {
     Remove-Item -Recurse -Force $repoPath
 }
 git clone $cloneUrl
@@ -42,16 +42,16 @@ az pipelines create `
   --branch main `
   --yaml-path pipeline.yml `
   --project "$projectName" `
-  --org "$devOpsOrgUrl"
+  --organization "$devOpsOrgUrl"
 
 # 7. Přiřazení oprávnění pro pipeline k Service Connection
-$pipelineId = az pipelines show --name $pipelineName --org "$devOpsOrgUrl" --project "$projectName" --query id -o tsv
-$serviceConnectionId = az devops service-endpoint list --project "$projectName" --org "$devOpsOrgUrl" --query "[?name=='$serviceConnectionName'].id" -o tsv
+$pipelineId = az pipelines show --name $pipelineName --organization "$devOpsOrgUrl" --project "$projectName" --query id -o tsv
+$serviceConnectionId = az devops service-endpoint list --project "$projectName" --organization "$devOpsOrgUrl" --query "[?name=='$serviceConnectionName'].id" -o tsv
 
 az devops service-endpoint update `
     --id $serviceConnectionId `
     --project "$projectName" `
-    --org "$devOpsOrgUrl" `
+    --organization "$devOpsOrgUrl" `
     --enable-for-all-pipelines true
 
 Set-Location $PSScriptRoot
