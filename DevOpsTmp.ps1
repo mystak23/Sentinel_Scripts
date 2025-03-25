@@ -5,7 +5,7 @@ $repoPath = "$PWD/$repoName"
 $cloneUrl = "git@ssh.dev.azure.com:v3/$devOpsOrg/$projectName/$repoName"
 
 
-git clone $cloneUrl $repoPath 
+git clone $cloneUrl $repoPath/test
 
 # 2. Přidání složky .devops-pipeline do repozitáře
 $sourceDevOpsFolder = ".devops-pipeline"
