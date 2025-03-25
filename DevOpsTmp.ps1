@@ -63,11 +63,11 @@ Set-Location ..
 $pipelineName = "Deploy-Sentinel-$customer"
 az pipelines create `
   --name $pipelineName `
-  --repository $repoName `
+  --repository "$projectName/$repoName" `
   --repository-type tfsgit `
   --branch main `
   --yaml-path pipeline.yml `
-  --project $projectName `
+  --project "$projectName" `
   --org "$devOpsOrgUrl"
 
 # 6. Přiřazení oprávnění pro pipeline k Service Connection
@@ -80,4 +80,5 @@ az devops service-endpoint update `
     --org "$devOpsOrgUrl" `
     --enable-for-all-pipelines true
 
+Set-Location $PSScriptRoot
 Write-Host "`n✅ Pipeline vytvořena a nastaveny proměnné i oprávnění."
