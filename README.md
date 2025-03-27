@@ -16,25 +16,28 @@ This repository contains useful scripts for automating and managing **Microsoft 
 - **MacOsExportLogicAppTemplate.ps1** – Export template for Azure Logic Apps on macOS.
 - **WindowsExportLogicAppTemplate.ps1** – Export template for Azure Logic Apps on Windows.
 
-## 🛠 Requirements
+# 🚀 Deployment Guide
 
+## 1️⃣ Prerequisites
+
+Ensure you have the following:
 - **Microsoft Sentinel** with appropriate permissions.
 - **Azure Logic Apps** (if working with Logic App templates).
 - **PowerShell 7+** (for executing `.ps1` scripts).
 - **Python 3.x** (if using `.py` scripts).
+- **Owner** permissions on the target Azure subscription
+- **Security Administrator or Global Administrator** permissions in tenant (not for every script)
+-  **`./CustomerAzureValues.json`** for customer-specific values - or change the script
 
-## 🚀 Usage
+## 2️⃣ Deployment Steps
 
-### Running PowerShell Scripts:
+### 1️⃣ Run the script
 
-```pwsh```
+Run the script
 
-```./<script_name>.ps1```
+`./SentinelDeploy.ps1`
 
-### Running Python Scripts:
-```python3 -m venv venv```
+### 2️⃣ Enter parameters
 
-```venv bin/activate```
-
-```python <script_name>.py```
-
+RgName: `<your_RG_name>`
+WorkspaceName: `<your_LA_name>`
