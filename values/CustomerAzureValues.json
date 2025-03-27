@@ -1,0 +1,22 @@
+{
+    "UJV": {
+        "resource_group": "rg-ujvg-sentinel-prod",
+        "workspace_name": "la-ujvg-sentinel-prod"
+    },
+    "RSD": {
+        "resource_group": "sentinel_rg",
+        "workspace_name": "SECURITY-LA"
+    },
+    "NEMLIB": {
+        "resource_group": "rg-sentinel",
+        "workspace_name": "LA-Sentinel"
+    },
+    "SITEL": {
+        "resource_group": "rg-sentinel",
+        "workspace_name": "LA-Sentinel"
+    },
+    "CEZ-EPRoznov": {
+        "resource_group": "epr-rg-security",
+        "workspace_name": "EPR-LA-Sentinel"
+    }
+}
