@@ -1,5 +1,5 @@
 {
-    "UJV": {
+    "customer1": {
         "resource_group": "rg-ujvg-sentinel-prod",
         "workspace_name": "la-ujvg-sentinel-prod"
     },

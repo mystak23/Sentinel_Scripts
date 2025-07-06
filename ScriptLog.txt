@@ -1,0 +1,80 @@
+[2025-05-14 16:13:13] [Debug] Default export folder path: /Users/mystak23/SentinelRepository/Github/Sentinel_Scripts/Exports
+[2025-05-14 16:13:13] [Information] Initializing export folder. Default location: /Users/mystak23/SentinelRepository/Github/Sentinel_Scripts/Exports
+[2025-05-14 16:13:18] [Information] User chose to use the default export location: /Users/mystak23/SentinelRepository/Github/Sentinel_Scripts/Exports
+[2025-05-14 16:13:18] [Information] Export folder already exists: /Users/mystak23/SentinelRepository/Github/Sentinel_Scripts/Exports
+[2025-05-14 16:13:18] [Information] Export folder initialization complete. Folder path: /Users/mystak23/SentinelRepository/Github/Sentinel_Scripts/Exports
+[2025-05-14 16:13:18] [Information] Export folder is set to: /Users/mystak23/SentinelRepository/Github/Sentinel_Scripts/Exports
+[2025-05-14 16:13:18] [Information] Starting script. Checking required modules...
+[2025-05-14 16:13:18] [Information] Checking if module 'Az.Accounts' is installed...
+[2025-05-14 16:13:18] [Information] Module 'Az.Accounts' is already installed. Importing...
+[2025-05-14 16:13:18] [Information] Checking if module 'Microsoft.PowerShell.ConsoleGuiTools' is installed...
+[2025-05-14 16:13:18] [Information] Module 'Microsoft.PowerShell.ConsoleGuiTools' is already installed. Importing...
+[2025-05-14 16:13:18] [Information] Prompting user: Generate ARM Template for Gallery?
+[2025-05-14 16:13:31] [Information] User decision for gallery template generation: False
+[2025-05-14 16:13:31] [Information] Prompting user: Do you want to update required Az Modules to the latest version?
+[2025-05-14 16:13:32] [Information] Skipping Az Module update as per user choice.
+[2025-05-14 16:13:32] [Information] Script initialization complete. Proceeding with main logic.
+[2025-05-14 16:13:32] [Information] TenantId not supplied. Retrieving available tenants...
+[2025-05-14 16:14:08] [Debug] Default export folder path: /Users/mystak23/SentinelRepository/Github/Sentinel_Scripts/Exports
+[2025-05-14 16:14:08] [Information] Initializing export folder. Default location: /Users/mystak23/SentinelRepository/Github/Sentinel_Scripts/Exports
+[2025-05-14 16:14:09] [Information] User chose to use the default export location: /Users/mystak23/SentinelRepository/Github/Sentinel_Scripts/Exports
+[2025-05-14 16:14:09] [Information] Export folder already exists: /Users/mystak23/SentinelRepository/Github/Sentinel_Scripts/Exports
+[2025-05-14 16:14:09] [Information] Export folder initialization complete. Folder path: /Users/mystak23/SentinelRepository/Github/Sentinel_Scripts/Exports
+[2025-05-14 16:14:09] [Information] Export folder is set to: /Users/mystak23/SentinelRepository/Github/Sentinel_Scripts/Exports
+[2025-05-14 16:14:09] [Information] Starting script. Checking required modules...
+[2025-05-14 16:14:09] [Information] Checking if module 'Az.Accounts' is installed...
+[2025-05-14 16:14:09] [Information] Module 'Az.Accounts' is already installed. Importing...
+[2025-05-14 16:14:09] [Information] Checking if module 'Microsoft.PowerShell.ConsoleGuiTools' is installed...
+[2025-05-14 16:14:09] [Information] Module 'Microsoft.PowerShell.ConsoleGuiTools' is already installed. Importing...
+[2025-05-14 16:14:09] [Information] Prompting user: Generate ARM Template for Gallery?
+[2025-05-14 16:14:10] [Information] User decision for gallery template generation: False
+[2025-05-14 16:14:10] [Information] Prompting user: Do you want to update required Az Modules to the latest version?
+[2025-05-14 16:14:11] [Information] Skipping Az Module update as per user choice.
+[2025-05-14 16:14:11] [Information] Script initialization complete. Proceeding with main logic.
+[2025-05-14 16:14:11] [Information] TenantId not supplied. Retrieving available tenants...
+[2025-05-14 16:14:12] [Information] Only one tenant found. Using TenantId: 56b31968-ca9e-4cc3-9257-477c3699b885
+[2025-05-14 16:14:12] [Information] Connecting to Azure with TenantId: 56b31968-ca9e-4cc3-9257-477c3699b885
+[2025-05-14 16:14:19] [Information] Retrieving subscriptions for TenantId: 56b31968-ca9e-4cc3-9257-477c3699b885
+[2025-05-14 16:14:20] [Information] Prompting user to select a subscription.
+[2025-05-14 16:14:23] [Information] Selected Subscription: UJVG-EA-Sentinel&M365Reports-Prod with SubscriptionId: 7aacb68c-4275-46cb-b9fb-b28753e60f5b
+[2025-05-14 16:14:23] [Information] Setting context to SubscriptionId: 7aacb68c-4275-46cb-b9fb-b28753e60f5b
+[2025-05-14 16:14:24] [Information] Retrieving resource groups for subscription: UJVG-EA-Sentinel&M365Reports-Prod
+[2025-05-14 16:14:25] [Information] Prompting user to select a resource group.
+[2025-05-14 16:14:28] [Information] Selected Resource Group: rg-ujvg-sentinel-prod
+[2025-05-14 16:14:28] [Information] Retrieving Logic Apps in Resource Group: rg-ujvg-sentinel-prod
+[2025-05-14 16:14:33] [Information] Found 5 Logic App(s) in Resource Group: rg-ujvg-sentinel-prod
+[2025-05-14 16:14:33] [Information] Prompting user to select Logic Apps for export.
+[2025-05-14 16:14:36] [Error] No Logic Apps selected. Exiting...
+[2025-05-14 16:14:42] [Debug] Default export folder path: /Users/mystak23/SentinelRepository/Github/Sentinel_Scripts/Exports
+[2025-05-14 16:14:42] [Information] Initializing export folder. Default location: /Users/mystak23/SentinelRepository/Github/Sentinel_Scripts/Exports
+[2025-05-14 16:14:50] [Information] User chose to use the default export location: /Users/mystak23/SentinelRepository/Github/Sentinel_Scripts/Exports
+[2025-05-14 16:14:50] [Information] Export folder already exists: /Users/mystak23/SentinelRepository/Github/Sentinel_Scripts/Exports
+[2025-05-14 16:14:50] [Information] Export folder initialization complete. Folder path: /Users/mystak23/SentinelRepository/Github/Sentinel_Scripts/Exports
+[2025-05-14 16:14:50] [Information] Export folder is set to: /Users/mystak23/SentinelRepository/Github/Sentinel_Scripts/Exports
+[2025-05-14 16:14:50] [Information] Starting script. Checking required modules...
+[2025-05-14 16:14:50] [Information] Checking if module 'Az.Accounts' is installed...
+[2025-05-14 16:14:50] [Information] Module 'Az.Accounts' is already installed. Importing...
+[2025-05-14 16:14:50] [Information] Checking if module 'Microsoft.PowerShell.ConsoleGuiTools' is installed...
+[2025-05-14 16:14:50] [Information] Module 'Microsoft.PowerShell.ConsoleGuiTools' is already installed. Importing...
+[2025-05-14 16:14:50] [Information] Prompting user: Generate ARM Template for Gallery?
+[2025-05-14 16:14:54] [Information] User decision for gallery template generation: True
+[2025-05-14 16:14:54] [Information] Prompting user: Do you want to update required Az Modules to the latest version?
+[2025-05-14 16:14:56] [Information] Skipping Az Module update as per user choice.
+[2025-05-14 16:14:56] [Information] Script initialization complete. Proceeding with main logic.
+[2025-05-14 16:14:56] [Information] TenantId not supplied. Retrieving available tenants...
+[2025-05-14 16:14:57] [Information] Only one tenant found. Using TenantId: 56b31968-ca9e-4cc3-9257-477c3699b885
+[2025-05-14 16:14:57] [Information] Connecting to Azure with TenantId: 56b31968-ca9e-4cc3-9257-477c3699b885
+[2025-05-14 16:15:07] [Information] Retrieving subscriptions for TenantId: 56b31968-ca9e-4cc3-9257-477c3699b885
+[2025-05-14 16:15:07] [Information] Prompting user to select a subscription.
+[2025-05-14 16:15:14] [Information] Selected Subscription: UJVG-EA-Sentinel&M365Reports-Prod with SubscriptionId: 7aacb68c-4275-46cb-b9fb-b28753e60f5b
+[2025-05-14 16:15:14] [Information] Setting context to SubscriptionId: 7aacb68c-4275-46cb-b9fb-b28753e60f5b
+[2025-05-14 16:15:15] [Information] Retrieving resource groups for subscription: UJVG-EA-Sentinel&M365Reports-Prod
+[2025-05-14 16:15:16] [Information] Prompting user to select a resource group.
+[2025-05-14 16:15:22] [Information] Selected Resource Group: rg-ujvg-sentinel-prod
+[2025-05-14 16:15:22] [Information] Retrieving Logic Apps in Resource Group: rg-ujvg-sentinel-prod
+[2025-05-14 16:15:24] [Information] Found 5 Logic App(s) in Resource Group: rg-ujvg-sentinel-prod
+[2025-05-14 16:15:24] [Information] Prompting user to select Logic Apps for export.
+[2025-05-14 16:15:29] [Information] User selected 1 Logic App(s) for export.
+[2025-05-14 16:15:29] [Information] Exporting selected Logic Apps as ARM templates...
+[2025-05-14 16:15:32] [Information] Exported ARM Template for 'Virus_Total_Incident_Enrichment' to '/Users/mystak23/SentinelRepository/Github/Sentinel_Scripts/Exports/Virus_Total_Incident_Enrichment_ARM.json'
+[2025-05-14 16:15:32] [Information] Export complete. Check the 'Exports' folder for the ARM template files.
